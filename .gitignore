@@ -1,0 +1,29 @@
+# 環境變數（包含密碼）
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 產生的檔案
+logs/*.log
+output/*.csv
+captcha.png
+
+# Docker
+.docker/
+
+# OS
+.DS_Store
+Thumbs.db
