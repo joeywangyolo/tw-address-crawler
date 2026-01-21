@@ -265,13 +265,9 @@ curl -X POST http://localhost:8000/api/v1/query/batch \
 
 ## 環境變數設定
 
-複製範例檔案來自訂設定：
+所有設定都在 `docker-compose.yml` 中直接修改，無需額外設定檔案即可啟動。
 
-```bash
-cp .env.example .env
-```
-
-### 可設定項目
+### 可設定項目（編輯 `docker-compose.yml` 中的 `api` 服務 `environment` 區塊）
 
 | 變數 | 預設值 | 說明 |
 |-----|-------|------|
@@ -300,21 +296,14 @@ cp .env.example .env
 
 ### 設定方式
 
-在 `docker-compose.yml` 或 `.env` 中設定以下環境變數：
+直接編輯 `docker-compose.yml` 中的 `api` 服務 `environment` 區塊：
 
 ```yaml
-# 啟用/停用排程
-ENABLE_SCHEDULER=true
-
-# 排程模式：cron 或 interval
-SCHEDULE_MODE=cron
-
-# Cron 模式：設定執行時間（每天 09:00 執行）
-SCHEDULE_HOUR=9
-SCHEDULE_MINUTE=0
-
-# Interval 模式：設定間隔時間（每 2 小時執行一次）
-SCHEDULE_INTERVAL_HOURS=2
+# 排程設定（如需修改請直接編輯此處）
+- ENABLE_SCHEDULER=true
+- SCHEDULE_MODE=cron
+- SCHEDULE_HOUR=17
+- SCHEDULE_MINUTE=17
 ```
 
 ### 查看排程狀態
