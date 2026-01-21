@@ -5,12 +5,13 @@ FROM python:3.11-slim
 WORKDIR /app
 
 # 安裝系統依賴（包含 ddddocr 需要的 OpenCV 依賴）
-RUN apt-get update && apt-get install -y \
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends \
     gcc \
     libffi-dev \
     libgl1 \
     libglib2.0-0 \
-    && rm -rf /var/lib/apt/lists/*
+    ; rm -rf /var/lib/apt/lists/* /var/cache/apt/archives/*
 
 # 複製依賴檔案
 COPY requirements.txt .
