@@ -186,7 +186,7 @@ uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 | `end_date` | string | ✅ | - | 結束日期，**民國年格式**：`114-11-30` |
 | `city_code` | string | ❌ | `"63000000"` | 縣市代碼（目前僅支援台北市） |
 | `register_kind` | string | ❌ | `"1"` | 編釘類別：`1`=初編, `2`=改編, `3`=廢止, `4`=復用 |
-| `districts` | array | ❌ | `null`（全部） | 指定行政區列表，`null` 表示查詢全部 12 區 |
+| `districts` | array | ❌ | `null`（全部） | 指定行政區列表， **直接移除該欄位（不傳入）**表示查詢全部 12 區 |
 | `save_to_db` | boolean | ❌ | `true` | 是否將結果存入資料庫 |
 
 

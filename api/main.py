@@ -238,7 +238,7 @@ def batch_query(request: BatchQueryRequest):
     - **start_date**: 起始日期 (民國年格式: 114-09-01)
     - **end_date**: 結束日期 (民國年格式: 114-11-30)
     - **register_kind**: 編釘類別 (1=初編, 2=改編, 3=廢止, 4=復用)
-    - **districts**: 指定行政區列表，null 表示全部
+    - **districts**: 指定行政區列表，**直接移除該欄位（不傳入）**表示查詢全部 12 區
     - **save_to_db**: 是否存入資料庫
     
     注意: 此操作可能需要 20-30 秒完成
