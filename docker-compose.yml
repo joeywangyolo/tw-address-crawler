@@ -47,8 +47,8 @@ services:
       - NOTIFICATION_ENABLED=${NOTIFICATION_ENABLED:-true}
       - SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}
       - SMTP_PORT=${SMTP_PORT:-587}
-      - SMTP_USER=${SMTP_USER:-joeywang45@gmail.com}
-      - SMTP_PASSWORD=${SMTP_PASSWORD:-frae uznt aymg exrx}
+      - SMTP_USER=${SMTP_USER:-your-email@gmail.com}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-your-app-password}
     ports:
       - "8000:8000"
     depends_on:
