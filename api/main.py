@@ -412,32 +412,6 @@ def get_scheduler_status():
     }
 
 
-@app.post(
-    "/api/v1/scheduler/trigger",
-    tags=["排程"],
-    summary="手動觸發排程任務"
-)
-def trigger_scheduler():
-    """
-    手動觸發一次排程任務（用於測試）
-    """
-    if not ENABLE_SCHEDULER:
-        raise HTTPException(status_code=400, detail="排程器未啟用")
-    
-    # 立即執行一次
-    scheduler.add_job(
-        scheduled_crawl_job,
-        'date',  # 立即執行
-        id="manual_trigger",
-        replace_existing=True
-    )
-    
-    return {
-        "message": "排程任務已觸發",
-        "triggered_at": datetime.now().isoformat()
-    }
-
-
 # ============================================================
 # 根路徑
 # ============================================================

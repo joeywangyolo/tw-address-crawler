@@ -39,10 +39,10 @@ services:
       - DB_NAME=household_db
       - TZ=Asia/Taipei
       # 排程設定
-      - ENABLE_SCHEDULER=true
-      - SCHEDULE_MODE=cron
-      - SCHEDULE_HOUR=17
-      - SCHEDULE_MINUTE=17
+      - ENABLE_SCHEDULER=${ENABLE_SCHEDULER:-true}
+      - SCHEDULE_MODE=${SCHEDULE_MODE:-cron}
+      - SCHEDULE_HOUR=${SCHEDULE_HOUR:-17}
+      - SCHEDULE_MINUTE=${SCHEDULE_MINUTE:-17}
       # 通知設定 (使用 Gmail 需要設定應用程式密碼)
       - NOTIFICATION_ENABLED=${NOTIFICATION_ENABLED:-true}
       - SMTP_HOST=${SMTP_HOST:-smtp.gmail.com}

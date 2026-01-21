@@ -11,6 +11,8 @@ from datetime import datetime
 # 請求模型
 # ============================================================
 
+ROC_DATE_RE = re.compile(r"^\d{3}-\d{2}-\d{2}$")  # 114-09-01
+
 class BatchQueryRequest(BaseModel):
     """批量查詢請求"""
     city_code: str = Field(
@@ -40,6 +42,15 @@ class BatchQueryRequest(BaseModel):
         default=True,
         description="是否將結果存入資料庫"
     )
+    
+    # 日期格式驗證（只擋格式）
+    @field_validator("start_date", "end_date")
+    @classmethod
+    def validate_roc_date_format(cls, v: str) -> str:
+        if not ROC_DATE_RE.match(v):
+            raise ValueError("日期格式錯誤，必須是民國年格式：114-09-01（YYY-MM-DD）")
+        return v
+
 
     @field_validator('districts')
     @classmethod
@@ -74,45 +85,6 @@ class BatchQueryRequest(BaseModel):
     )
 
 
-class DistrictQueryRequest(BaseModel):
-    """單一行政區查詢請求"""
-    city_code: str = Field(
-        default="63000000",
-        description="縣市代碼"
-    )
-    district_name: str = Field(
-        ...,
-        description="行政區名稱",
-        examples=["松山區"]
-    )
-    start_date: str = Field(
-        ...,
-        description="起始日期，格式: 114-09-01"
-    )
-    end_date: str = Field(
-        ...,
-        description="結束日期，格式: 114-11-30"
-    )
-    register_kind: str = Field(
-        default="1",
-        description="編釘類別"
-    )
-    
-    @field_validator('district_name')
-    @classmethod
-    def validate_district_name(cls, v):
-        """驗證行政區名稱"""
-        valid_districts = [
-            "松山區", "信義區", "大安區", "中山區", "中正區",
-            "大同區", "萬華區", "文山區", "南港區", "內湖區",
-            "士林區", "北投區"
-        ]
-        if v not in valid_districts:
-            raise ValueError(f"無效的行政區: {v}，有效值為: {valid_districts}")
-        return v
-    
-    model_config = ConfigDict(extra="forbid")  # 禁止未知欄位
-
 
 # ============================================================
 # 回應模型
@@ -139,15 +111,6 @@ class BatchQueryResponse(BaseModel):
     )
     error_message: Optional[str] = Field(default=None, description="錯誤訊息")
 
-
-class DistrictQueryResponse(BaseModel):
-    """單一行政區查詢回應"""
-    success: bool
-    district_name: str
-    total_count: int
-    data: List[HouseholdRecord]
-    execution_time: float
-    error_message: Optional[str] = None
 
 
 class HealthResponse(BaseModel):
