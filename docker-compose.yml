@@ -49,8 +49,8 @@ services:
       - NOTIFICATION_ENABLED=true # true=啟用, false=關閉
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=587
-      - SMTP_USER=joeywang45@gmail.com # 寄件人帳號 (Gmail 需使用應用程式密碼)
-      - SMTP_PASSWORD=frae uznt aymg exrx # 請修改為您的 Gmail 應用程式密碼，取得 Gmail 應用程式密碼: https://myaccount.google.com/apppasswords
+      - SMTP_USER=your-mail@gmail.com # 寄件人帳號 (Gmail 需使用應用程式密碼)
+      - SMTP_PASSWORD=your-password # 請修改為您的 Gmail 應用程式密碼，取得 Gmail 應用程式密碼: https://myaccount.google.com/apppasswords
     ports:
       - "8000:8000"
     depends_on:
