@@ -2,6 +2,7 @@
 API 請求和回應的資料模型定義
 使用 Pydantic 進行資料驗證
 """
+import re
 from typing import Optional, List, Dict
 from pydantic import BaseModel, Field, field_validator, ConfigDict
 from datetime import datetime
@@ -42,7 +43,7 @@ class BatchQueryRequest(BaseModel):
         default=True,
         description="是否將結果存入資料庫"
     )
-    
+
     # 日期格式驗證（只擋格式）
     @field_validator("start_date", "end_date")
     @classmethod

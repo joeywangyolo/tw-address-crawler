@@ -940,7 +940,9 @@ def main(save_to_db: bool = True, save_to_csv: bool = True):
                 # 發送「查詢資料為空」通知
                 if NOTIFIER_AVAILABLE and db_manager:
                     emails = db_manager.get_notification_emails()
-                    if emails:
+                    if not emails:
+                        print("[通知] email_address 表無收件人，跳過發送通知")
+                    else:
                         query_info = f"日期範圍: {start_date} ~ {end_date}\n查詢區域: 台北市全部行政區"
                         notifier.notify_empty_data(emails, query_info, batch_id)
                         print("[通知] 已發送「查詢資料為空」通知")
@@ -954,7 +956,9 @@ def main(save_to_db: bool = True, save_to_csv: bool = True):
             # 發送「爬蟲執行失敗」通知
             if NOTIFIER_AVAILABLE and db_manager:
                 emails = db_manager.get_notification_emails()
-                if emails:
+                if not emails:
+                    print("[通知] email_address 表無收件人，跳過發送通知")
+                else:
                     notifier.notify_crawler_error(emails, result.error_message, batch_id)
                     print("[通知] 已發送「爬蟲執行失敗」通知")
         

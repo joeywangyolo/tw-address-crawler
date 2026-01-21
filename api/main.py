@@ -297,16 +297,17 @@ def batch_query(request: BatchQueryRequest):
         # 發送異常通知
         if NOTIFIER_AVAILABLE and db_manager:
             emails = db_manager.get_notification_emails()
-            if emails:
-                if not result.success:
-                    # 爬蟲執行失敗
-                    notifier.notify_crawler_error(emails, result.error_message, batch_id)
-                    logger.info("[通知] 已發送「爬蟲執行失敗」通知")
-                elif result.total_count == 0:
-                    # 查詢資料為空
-                    query_info = f"日期範圍: {request.start_date} ~ {request.end_date}\n查詢區域: {', '.join(districts.keys())}"
-                    notifier.notify_empty_data(emails, query_info, batch_id)
-                    logger.info("[通知] 已發送「查詢資料為空」通知")
+            if not emails:
+                logger.warning("[通知] email_address 表無收件人，跳過發送通知")
+            elif not result.success:
+                # 爬蟲執行失敗
+                notifier.notify_crawler_error(emails, result.error_message, batch_id)
+                logger.info("[通知] 已發送「爬蟲執行失敗」通知")
+            elif result.total_count == 0:
+                # 查詢資料為空
+                query_info = f"日期範圍: {request.start_date} ~ {request.end_date}\n查詢區域: {', '.join(districts.keys())}"
+                notifier.notify_empty_data(emails, query_info, batch_id)
+                logger.info("[通知] 已發送「查詢資料為空」通知")
         
         # 更新 log 狀態並關閉資料庫連線
         if db_manager and batch_id:
