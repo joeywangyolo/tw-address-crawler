@@ -176,6 +176,8 @@ uvicorn api.main:app --reload --host 0.0.0.0 --port 8000
 | `GET` | `/api/v1/districts` | 取得所有支援的行政區列表及代碼 |
 | `POST` | `/api/v1/query/batch` | 批量查詢多個行政區的門牌資料 |
 
+> 💡 所有 POST 請求需使用 `Content-Type: application/json`
+
 #### `POST /api/v1/query/batch` 批量查詢
 
 **請求參數：**

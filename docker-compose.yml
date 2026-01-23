@@ -46,7 +46,7 @@ services:
       - SCHEDULE_HOUR=17
       - SCHEDULE_MINUTE=17
       # 通知設定（如需啟用 Email 通知，請修改以下設定）
-      - NOTIFICATION_ENABLED=true # true=啟用, false=關閉
+      - NOTIFICATION_ENABLED=true # true=啟用, false=關閉（需先設定 SMTP 帳密）
       - SMTP_HOST=smtp.gmail.com
       - SMTP_PORT=587
       - SMTP_USER=your-mail@gmail.com # 寄件人帳號 (Gmail 需使用應用程式密碼)
